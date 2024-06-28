@@ -1,0 +1,118 @@
+<body class="mat-app-background form-card" id="card">
+  <mat-card appearance="outlined">
+    <mat-card-content>
+      <mat-card-header>
+        <h2>Soporte técnico</h2>
+      </mat-card-header>
+
+      <!-- //! Verificar formato debe ser tipo> 01/06/2024 -->
+      <form
+        [formGroup]="profileForm"
+        (ngSubmit)="downloadAsPDF(profileForm.value)"
+        class="form-servicios"
+      >
+        <mat-form-field class="form-full" id="fecha">
+          <mat-label>Seleccione una fecha</mat-label>
+          <input
+            formControlName="fecha"
+            name="fecha"
+            matInput
+            [matDatepicker]="picker"
+            placeholder="Ej. 1/1/2024"
+          />
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="form-full" appearance="fill">
+          <mat-label>Nombre del tecnico asignado</mat-label>
+          <input
+            matInput
+            formControlName="nombre"
+            matInput
+            placeholder="Ej. Juan Pérez"
+          />
+        </mat-form-field>
+
+        <mat-form-field class="form-full">
+          <mat-label>Numero del tecnico asignado</mat-label>
+          <input
+            formControlName="numeroTecnico"
+            name="numeroTecnico"
+            matInput
+            placeholder="Ej. 55447799"
+          />
+        </mat-form-field>
+
+        <table class="form-full">
+          <tr>
+            <td>
+              <mat-form-field class="form-full">
+                <mat-label>Empresa</mat-label>
+                <input
+                  formControlName="empresa"
+                  name="empresa"
+                  matInput
+                  placeholder="Ej. Macdonalds Marimba"
+                />
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field class="form-full">
+                <mat-label>Elija departamento</mat-label>
+                <mat-select
+                  formControlName="depto"
+                  (selectionChange)="setDepto($event.value)"
+                >
+                  <mat-option
+                    *ngFor="let departamento of departamentosGt"
+                    [value]="departamento.id"
+                    >{{ departamento.name }}</mat-option
+                  >
+                </mat-select>
+              </mat-form-field>
+            </td>
+          </tr>
+        </table>
+        <mat-form-field class="form-full">
+          <mat-label>Direccion</mat-label>
+          <input
+            formControlName="direccion"
+            name="direccion"
+            matInput
+            placeholder="Ej. 1ra avenida, 3ra calle, zona 1"
+          />
+        </mat-form-field>
+
+        <!-- <p>Tipo de servicio> falta!</p> -->
+        <mat-form-field class="form-full">
+          <mat-label>Tipo de servicio</mat-label>
+          <mat-select
+            formControlName="servicio"
+            (selectionChange)="setServicio($event.value)"
+          >
+            <mat-option
+              *ngFor="let servicio of servicioTipo"
+              [value]="servicio.id"
+              >{{ servicio.name }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="form-full">
+          <mat-label>Descripcion técnica del servicio</mat-label>
+          <textarea matInput formControlName="problemaDescripcion"></textarea>
+        </mat-form-field>
+      </form>
+
+      <button (click)="downloadAsPDF(profileForm.value)" mat-flat-button>
+        Imprimir
+      </button>
+      <!--
+      <a mat-flat-button href="https://www.google.com/" target="_blank">Link</a> -->
+    </mat-card-content>
+  </mat-card>
+</body>
